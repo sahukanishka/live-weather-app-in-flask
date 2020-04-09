@@ -77,13 +77,13 @@
   margin-right: 20%;
 }
 
-.user-input a.button{
-  background-color: dodgerblue;
-}
 
 .working-content{
+  text-align: center;
+  margin: 300px;
+  width: 300px;
+  height: 350px;
   position: fixed;
-  margin: 200px;
-  padding: 100px;
+
   background-color: #f1f1f1;
 }

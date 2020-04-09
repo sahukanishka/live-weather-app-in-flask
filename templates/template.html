@@ -17,18 +17,24 @@
       <button style=" color: white; font-family: sans-serif; border: none; background-color: dodgerblue; padding: 10px; border-radius: 2px;" class="button">Check</button>
 
     </div>
+    <div class="working-bock">
+      <div class="working-content">
+        <h1>{{weather.city}}</h1>
+        <p>Country :{{weather.country}}</p>
+        <p>temp:{{weather.temperature}}</p>
+        <p>{{weather.description}}</p>
+        <p>Humidity : {{weather.humidity}}</p>
+        <p>Pressure : {{weather.pressure}}</p>
 
-    <div class="working-content">
-        <h1>City  Name </h1>
-        <p>Temp</p>
-        <p>45.56 F</p>
-        <img src="https://www.freeiconspng.com/uploads/weather-icon-png-8.png" alt="" style="width: 200px;height: 200px;">
+        <img src="https://openweathermap.org/img/w/{{weather.icon}}.png" alt="" style="width:70px;height: 70px;">
 
     </div>
+    </div>
+    
         <div class="footer">
             <h3>Live weather app</h3>
           <p>Thanks for visitimg the APP</p>
-          <p>copyright kanishka@2020</p>
+          <p>copyright kanishka@2020</p> 
         </div> 
 </body>
 </html>
