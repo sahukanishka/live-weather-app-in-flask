@@ -1,6 +1,6 @@
 from flask import Flask
 import requests
-from flask import render_template
+from flask import render_template,redirect,url_for
 from flask import request
 from flask_sqlalchemy import SQLAlchemy
 
@@ -16,30 +16,31 @@ class City(db.Model):
     id = db.Column(db.Integer,primary_key=True)
     name = db.Column(db.String(50),nullable=False)
 
+def get_weather_data(city):
+    url = f'http://api.openweathermap.org/data/2.5/weather?q={ city }&units=imperial&appid=b7d6a69e341e91ca31cefbd99139d193'
+    r = requests.get(url).json()
+    return r 
+         
 
-@app.route('/',methods=['GET','POST'])
-def index():
-    # db.session.query(City).delete()
-    # db.session.commit()
-    if request.method == 'POST':
-        new_city = request.form.get('city')
-        if new_city :
-            new_city_obj = City(name=new_city)
-            db.session.add(new_city_obj)
-            db.session.commit()
+
+
+@app.route('/',methods=['GET'])
+def index_get():
     cities = City.query.all()
     cities = reversed(cities)
 
-    url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=b7d6a69e341e91ca31cefbd99139d193'
-
+    
     #creating a blank list to hold all the cities
     weather_data = []
 
     for city in cities:
+        r = get_weather_data(city.name)
+        print(r)
+
+
         #fetching the dat from the apii if going here
         #first passing the city name to the api call 
-        r = requests.get(url.format(city.name)).json()
-        
+       
         #now we are getting the data in the nested dict and lsit
         # output data 
         # {'coord': {'lon': -115.14, 'lat': 36.17}, 
@@ -70,7 +71,31 @@ def index():
 
 
     return render_template('template.html', weather_data=weather_data)
+
+@app.route('/',methods=['POST'])
+def index_post():
+    err_msg = ''
+    # db.session.query(City).delete()
+    # db.session.commit()
+    # if request.method == 'POST':
+    new_city = request.form.get('city')
+    if new_city :
+        existing_city = City.query.filter_by(name=new_city).first()
+           
+        if not existing_city:
+            new_city_data = get_weather_data(new_city)
+            if new_city_data['cod'] == 200:
+                new_city_obj = City(name=new_city)
+                db.session.add(new_city_obj)
+                db.session.commit()
+            else:
+                err_msg = 'City does not Exit in the world!'
+        else:
+            err_msg = 'City not exist in database!'
+
+    return redirect(url_for('index_get'))
+
 if __name__=='__main__':
     app.debug=True
-    app.run(host='0.0.0.0',port=4000) 
+    app.run(host='0.0.0.0',port=3000) 
 
