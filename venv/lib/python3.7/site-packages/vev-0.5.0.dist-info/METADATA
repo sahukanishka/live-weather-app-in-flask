@@ -1,0 +1,62 @@
+Metadata-Version: 2.0
+Name: vev
+Version: 0.5.0
+Summary: Simple HTTP server request routing
+Home-page: https://github.com/cslarsen/vev
+Author: Christian Stigen Larsen
+Author-email: csl@csl.name
+License: https://www.gnu.org/licenses/lgpl-2.1.html
+Download-URL: https://github.com/cslarsen/vev/tarball/v0.5.0
+Keywords: web,http,routing,server,url
+Platform: unix
+Platform: linux
+Platform: osx
+Platform: cygwin
+Platform: win32
+Classifier: Development Status :: 3 - Alpha
+Classifier: Natural Language :: English
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: POSIX
+Classifier: Operating System :: Unix
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python
+
+vev — simple HTTP server request routing
+========================================
+
+An *extremely* simple web routing scheme based on Python's default web server
+modules, vev makes it easy to quickly create simple web servers.  At this
+point, it's basically just an experiment.
+
+It works both for Python 2 and 3.
+
+"Vev" is the Norwegian word for "web".
+
+Example
+=======
+
+::
+
+    import vev
+
+    class HelloWorld(vev.Server):
+        @vev.route("/")
+        def index(self):
+            return "<html><body><a href='/foo'>Foo</a></body></html>"
+
+        @vev.route("/foo")
+        def foo(self):
+            return "<html><body><a href='/'>Start</a></body></html>"
+
+    if __name__ == "__main__":
+        vev.serve(("0.0.0.0", 8080), HelloWorld)
+
+License
+-------
+Copyright 2015 Christian Stigen Larsen
+
+Distributed under the LGPL 2.1. You are allowed to change the license on a
+particular copy to the LGPL 3.0, the GPL 2.0 or the GPL 3.0.
+
+

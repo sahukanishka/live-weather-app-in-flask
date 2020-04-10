@@ -12,24 +12,34 @@
           <a href="#contact">Contact</a>
           <a href="#about">About</a>
     </div>
-    <div class="user-input">
-      <input type="text" placeholder="Enter the City Name">
-      <button style=" color: white; font-family: sans-serif; border: none; background-color: dodgerblue; padding: 10px; border-radius: 2px;" class="button">Check</button>
 
-    </div>
-    <div class="working-bock">
-      <div class="working-content">
-        <h1>{{weather.city}}</h1>
-        <p>Country :{{weather.country}}</p>
-        <p>temp:{{weather.temperature}}</p>
-        <p>{{weather.description}}</p>
-        <p>Humidity : {{weather.humidity}}</p>
-        <p>Pressure : {{weather.pressure}}</p>
+    <form method="POST">
+      <div class="user-input">
+        <input class="input" name="city" type="text" placeholder="Enter the City Name">
+        <button >Check</button>
+  
+      </div>
+    </form>
+   
+    <div class="working-bock" >
+      {% for weather in weather_data %}
+        <div class="box" style="text-align: center">
 
-        <img src="https://openweathermap.org/img/w/{{weather.icon}}.png" alt="" style="width:70px;height: 70px;">
+            <div class="working-content">
+              <h1>{{weather.city}}</h1>
+              <p>Country :{{weather.country}}</p>
+              <p>temp:{{weather.temperature}}</p>
+              <p>{{weather.description}}</p>
+              <p>Humidity : {{weather.humidity}}</p>
+              <p>Pressure : {{weather.pressure}}</p>
+              <button>Delete</button>
 
+              <img src="https://openweathermap.org/img/w/{{weather.icon}}.png" alt="" style="width:70px;height: 70px;">
+                </div>
+          </div>
+      {% endfor %}
     </div>
-    </div>
+   
     
         <div class="footer">
             <h3>Live weather app</h3>
