@@ -20,7 +20,7 @@ def delete_city(name):
     city = City.query.filter_by(name=name).first()
     db.session.delete(city)
     db.session.commit()
-    flash(f'Sucessfully deleted{ city.name }' , 'sucess')
+    flash(f'Sucessfully deleted { city.name }' , 'sucess')
     return redirect(url_for('index_get'))
 
 
@@ -47,7 +47,6 @@ def index_get():
 
     for city in cities:
         r = get_weather_data(city.name)
-        print(r)
 
 
         #fetching the dat from the apii if going here

@@ -95,14 +95,27 @@
   background-color:white;
 }
 
-.alert {
+
+
+.alert-sucess {
   padding: 20px;
-  background-color: #f44336; /* Red */
+  background-color:limegreen; /* Red */
   color: white;
   margin: 15px;
   width: 300px;
   border-radius: 5px;
 }
+
+
+.alert-danger {
+  padding: 20px;
+  background-color:rgb(250, 85, 85); /* Red */
+  color: white;
+  margin: 15px;
+  width: 300px;
+  border-radius: 5px;
+}
+
 
 /* The close button */
 .closebtn {

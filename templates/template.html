@@ -12,18 +12,29 @@
           <a href="#contact">Contact</a>
           <a href="#about">About</a>
     </div>
-
+    <div>
     <form method="POST">
       <div class="user-input">
         <input class="input" name="city" type="text" placeholder="Enter the City Name">
         <button >Check</button>
-        
-        <div class="alert">
-          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-          This is an alert box.
-        </div> 
-  
       </div>
+        <div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            {% set message_class = 'alert-sucess' %}
+
+            {% if category == 'error' %}
+              {% set message_class = 'alert-danger' %}
+            {% endif %}
+            <div class= "{{ message_class }}" > {{ message }}   <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span></div>
+           
+          </div> 
+          {% endfor %}
+        {% endif %}
+        {% endwith %}
+      </div>
+    </div>
     </form>
    
     <div class="working-bock" >
