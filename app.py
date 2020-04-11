@@ -1,6 +1,6 @@
 from flask import Flask
 import requests
-from flask import render_template,redirect,url_for
+from flask import render_template,redirect,url_for,flash
 from flask import request
 from flask_sqlalchemy import SQLAlchemy
 
@@ -9,8 +9,20 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///weather.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECRET_KEY'] = 'somesecretkehere'
  #database 
 db = SQLAlchemy(app)
+
+@app.route('/delete/<name>')
+ # db.session.query(City).delete()
+# db.session.commit()
+def delete_city(name):
+    city = City.query.filter_by(name=name).first()
+    db.session.delete(city)
+    db.session.commit()
+    flash(f'Sucessfully deleted{ city.name }' , 'sucess')
+    return redirect(url_for('index_get'))
+
 
 class City(db.Model):
     id = db.Column(db.Integer,primary_key=True)
@@ -92,7 +104,11 @@ def index_post():
                 err_msg = 'City does not Exit in the world!'
         else:
             err_msg = 'City not exist in database!'
-
+        
+    if err_msg:
+        flash(err_msg,'error')
+    else:
+        flash('City added sucessfully')
     return redirect(url_for('index_get'))
 
 if __name__=='__main__':

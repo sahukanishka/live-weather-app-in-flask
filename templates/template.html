@@ -17,7 +17,7 @@
       <div class="user-input">
         <input class="input" name="city" type="text" placeholder="Enter the City Name">
         <button >Check</button>
-
+        
         <div class="alert">
           <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
           This is an alert box.
@@ -37,7 +37,11 @@
               <p>{{weather.description}}</p>
               <p>Humidity : {{weather.humidity}}</p>
               <p>Pressure : {{weather.pressure}}</p>
-              <button>Delete</button>
+              <div><a href="{{ url_for('delete_city',name=weather.city) }}">
+                <button>Delete</button>
+              </a>    
+              </div>
+            
 
               <img src="https://openweathermap.org/img/w/{{weather.icon}}.png" alt="" style="width:70px;height: 70px;">
                 </div>
